@@ -3,6 +3,9 @@
     --accent: #3ddc97;
     --text: #e8f9f0;
     --clock-bg:#112533;
+    --hand-hour:#fff;
+    --hand-minute:#7fffd4;
+    --hand-second:#ff4d4d;
 }
 body{
     background: var(--bg);
@@ -86,4 +89,44 @@ body{
     display: inline-block;
     transform: rotate(calc(var(--i)* -30deg));
     margin-top: 20px;
+}
+.container{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.hand{
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(0deg);
+    border-radius: 6px;
+    z-index: 10;
+    transition: transform 0.2s cubic-bezier(0.4,2.3,0.3,1);
+}
+.hand.hour{
+    width: 6px;
+    height: 70px;
+    background: var(--hand-hour);
+}
+.hand.minute{
+    width: 4px;
+    height: 95px;
+    background: var(--hand-minute);
+}
+.hand.second{
+    width: 2px;
+    height: 110px;
+    background: var(--hand-second);
+}
+.analog-clock::before{
+    content: '';
+    position: absolute;
+    width: 92%;
+    height: 92%;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
