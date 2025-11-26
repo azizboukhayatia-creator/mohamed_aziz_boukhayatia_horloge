@@ -37,6 +37,20 @@
             <div class="hand second" id="sec-hand"></div>
         </div>
     </div>
+    <div class="controls">
+        <label>Fuseau horaire</label>
+        <select id="tz">
+            <option value="local">Local</option>
+            <option value="Europe/Paris">Europe/Paris</option>
+            <option value="Africa/Tunis">Africa/Tunis</option>
+            <option value="Asia/Tokyo">Asia/Tokyo</option>
+            <option value="New York">New York</option>
+            <option value="Sydney">Sydney</option>
+        </select>
+        <label>Offset (minutes) :</label>
+        <input type="number" id="offset" placeholder="+120/-90"/>
+        <button id="btn-tz">Appliquer</button>
+    </div>
     </div>
     <script src="app.js"></script>
 </body>
