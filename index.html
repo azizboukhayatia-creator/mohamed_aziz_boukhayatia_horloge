@@ -8,13 +8,16 @@
 </head>
 <body>
     <div class="container">
-    
+    <div class="clock-section">
         <div class="digital-box">
             <div id="digital" class="digital">--:--:--</div>
             <div class="small">Heure locale</div>
         </div>
+    </div>
+    <div class="clock-section">
         <div class="analog-clock">
             <div class="center-dot"></div>
+            <div class="minute-marks"></div>
             <div class="numbers">
                 <span style="--i:1" data-number="1"></span>
                 <span style="--i:2" data-number="2"></span>
@@ -33,6 +36,7 @@
             <div class="hand minute" id="min-hand"></div>
             <div class="hand second" id="sec-hand"></div>
         </div>
+    </div>
     </div>
     <script src="app.js"></script>
 </body>

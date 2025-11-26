@@ -29,3 +29,10 @@ function updateClock() {
 }
 setInterval(updateClock, 200);
 updateClock();
+window.addEventListener("load", function () {
+  document.body.style.opacity = "0";
+  document.body.style.transition = "opacity 0.5q ease";
+  setTimeout(() => {
+    document.body.style.opacity = "1";
+  }, 100);
+});
