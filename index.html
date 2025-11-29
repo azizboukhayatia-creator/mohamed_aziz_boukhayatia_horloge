@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 class="title">⏰ Horloge Numérique & Analogique ⏰</h1>
+    <h1 class="title"> Horloge Monde - Carte Interactive & Multi-Fuseaux </h1>
     <div class="container">
+    <div class="clocks-row">
+    <div class="clock-item">
     <div class="clock-section">
         <div class="digital-box">
             <div id="digital" class="digital">--:--:--</div>
-            <div class="small">Heure locale</div>
+            <div class="small">Fuseau actuel : <span id="tz-name">local</span></div>
         </div>
     </div>
+    <div class="clock-item">
     <div class="clock-section">
         <div class="analog-clock">
             <div class="center-dot"></div>
@@ -38,6 +41,22 @@
             <div class="hand second" id="sec-hand"></div>
         </div>
     </div>
+    </div>
+    </div>
+    </div>
+    <div class="cities-section">
+            <h2 style="color: var(--accent); margin-bottom: 15px; text-align: center;">🏙️ Heures des Grandes Villes Mondiales</h2>
+            <table class="cities-table">
+                <thead>
+                    <tr>
+                        <th>Ville</th>
+                        <th>Pays</th>
+                        <th class="timezone-header">Heure Locale</th>
+                    </tr>
+                </thead>
+                <tbody id="cities-table-body"></tbody>
+            </table>
+        </div>
     <div class="controls">
         <label>Fuseau horaire</label>
         <select id="tz">

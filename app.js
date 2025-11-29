@@ -1,3 +1,21 @@
+const worldCities = [
+  { name: "Paris", tz: "Europe/Paris", country: "France" },
+  { name: "New York", tz: "America/New_York", country: "USA" },
+  { name: "Tokyo", tz: "Asia/Tokyo", country: "Japon" },
+  { name: "Sydney", tz: "Australia/Sydney", country: "Australie" },
+  { name: "Londres", tz: "Europe/London", country: "Royaume-Uni" },
+  { name: "Moscou", tz: "Europe/Moscow", country: "Russie" },
+  { name: "Pékin", tz: "Asia/Shanghai", country: "Chine" },
+  { name: "Rio de Janeiro", tz: "America/Sao_Paulo", country: "Brésil" },
+  { name: "Le Caire", tz: "Africa/Cairo", country: "Égypte" },
+  { name: "Mumbai", tz: "Asia/Kolkata", country: "Inde" },
+  { name: "Los Angeles", tz: "America/Los_Angeles", country: "USA" },
+  { name: "Dubai", tz: "Asia/Dubai", country: "Émirats Arabes Unis" },
+  { name: "Berlin", tz: "Europe/Berlin", country: "Allemagne" },
+  { name: "Toronto", tz: "America/Toronto", country: "Canada" },
+  { name: "São Paulo", tz: "America/Sao_Paulo", country: "Brésil" },
+  { name: "Singapour", tz: "Asia/Singapore", country: "Singapour" },
+];
 const digitalEl = document.getElementById("digital");
 const hourHand = document.getElementById("hour-hand");
 const minHand = document.getElementById("min-hand");
@@ -5,10 +23,58 @@ const secHand = document.getElementById("sec-hand");
 const tzNameEl = document.getElementById("tz-name");
 const tzSelect = document.getElementById("tz");
 const offsetInput = document.getElementById("offset");
+const citiesTableBody = document.getElementById("cities-table-body");
 
 let selectedTZ = "local";
 let customOffset = null;
 
+function getCityTime(city) {
+  try {
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat("fr-FR", {
+      timeZone: city.tz,
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: false,
+    });
+
+    return formatter.format(now);
+  } catch (error) {
+    return "--:--:--";
+  }
+}
+
+function updateCitiesTable() {
+  if (citiesTableBody) {
+    citiesTableBody.innerHTML = "";
+    worldCities.forEach((city) => {
+      const cityTime = getCityTime(city);
+      const row = document.createElement("tr");
+      row.innerHTML = `
+     <td>
+          <div class="city-name">${city.name}</div>
+      </td>
+      <td>
+          <div class="city-country">${city.country}</div>
+      </td>
+      <td>
+          <div class="city-time">${cityTime}</div>
+      </td>
+    `;
+      row.addEventListener("click", () => {
+        selectedTZ = city.tz;
+        customOffset = null;
+        tzSelect.value = city.tz;
+        offsetInput.value = "";
+        updateTimezoneInfo();
+        updateClock();
+      });
+
+      citiesTableBody.appendChild(row);
+    });
+  }
+}
 function getCurrentTime() {
   if (customOffset !== null) {
     const now = new Date();
@@ -114,9 +180,6 @@ offsetInput.addEventListener("keypress", (e) => {
     document.getElementById("btn-tz").click();
   }
 });
-setInterval(updateClock, 200);
-updateClock();
-updateTimezoneInfo();
 
 window.addEventListener("load", function () {
   document.body.style.opacity = "0";
@@ -124,4 +187,12 @@ window.addEventListener("load", function () {
   setTimeout(() => {
     document.body.style.opacity = "1";
   }, 100);
+
+  updateClock();
+  updateTimezoneInfo();
+  updateCitiesTable();
+  setInterval(updateCitiesTable, 1000);
 });
+setInterval(updateClock, 200);
+updateClock();
+updateTimezoneInfo();
